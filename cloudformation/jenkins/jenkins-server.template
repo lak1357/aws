@@ -187,7 +187,7 @@
             },
             "ap-southeast-1" : {
                 "PV64" : "ami-27f90e27",
-                "HVM64" : "ami-cbf90ecb"
+                "HVM64" : "ami-dc9339bf"
             },
             "ap-southeast-2" : {
                 "PV64" : "ami-ff9cecc5",
