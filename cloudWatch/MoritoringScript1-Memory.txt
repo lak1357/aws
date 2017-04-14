@@ -8,4 +8,9 @@ unzip CloudWatchMonitoringScripts-1.2.1.zip
 
 crontab -e
 
-*/5 * * * * PATH/mon-put-instance-data.pl --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-space-util --disk-space-used --disk-space-avail --memory-units=megabytes --disk-space-units=gigabytes --disk-path=/dev/xvda1
+*/5 * * * * PATH/mon-put-instance-data.pl --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-space-util --disk-space-used --disk-space-avail --memory-units=megabytes --disk-space-units=gigabytes --disk-path=/dev/xvda1a
+
+
+# To see cron Logs
+
+tail -1000f /var/log/cron
