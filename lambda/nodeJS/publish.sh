@@ -1,3 +1,5 @@
 rm calculator.zip
-zip -r calculator.zip calculator
+cd calculator
+zip -r ../calculator.zip *
+cd ..
 aws lambda update-function-code --function-name calculator --zip-file fileb://calculator.zip
