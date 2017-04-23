@@ -5,27 +5,41 @@ exports.handler = (event, context, callback) => {
     var number2 = event.number2;
     let response;
 
+    // Work on the status codes
+    response = {
+        statusCode: '500',
+        body: JSON.stringify({ error: 'you messed up!' }),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
+
+    callback(null, response);
+
+
+
     if (operation === undefined) {
 
-        response = {
-            error: 'No operation specified'
-        };
+        return context.fail('Bad Request: No operation specified');
 
     }
     else {
 
         var result;
 
-        if (operation == "sum") {
+        if (operation == "add") {
             result = number1 + number2;
         }
-        else if (operation == "subtract"){
+        else if (operation == "subtract") {
             result = number1 - number2;
         }
 
         response = {
             result: result
         };
+
+
+        return context.succeed(response);
+
     }
-    callback(null, response);
 };
