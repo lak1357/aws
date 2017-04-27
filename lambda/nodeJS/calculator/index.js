@@ -5,18 +5,6 @@ exports.handler = (event, context, callback) => {
     var number2 = event.number2;
     let response;
 
-    // Work on the status codes
-    response = {
-        statusCode: '500',
-        body: JSON.stringify({ error: 'you messed up!' }),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    };
-
-    callback(null, response);
-
-
 
     if (operation === undefined) {
 
