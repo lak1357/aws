@@ -24,29 +24,21 @@ exports.handler = (event, context, callback) => {
     }
     else {
 
-
-
-        var eventText = JSON.stringify(event, null, 2);
+        var message = {name:name , age:age , address:address , phone:phone};
         var sns = new AWS.SNS();
-        var params = {
-            Message: eventText,
+        sns.publish({
+            TopicArn: "arn:aws:sns:ap-southeast-1:936825406282:customerDetails",
             Subject: "Test SNS From Lambda",
-            TopicArn: "arn:aws:sns:ap-southeast-1:936825406282:customerDetails"
-        };
-        sns.publish(params, context.done);
-
-
-
-        let response = {
-            statusCode: '200',
-            body: JSON.stringify({ message: 'done' }),
-            headers: {
-                'Content-Type': 'application/json',
+            Message: JSON.stringify(message)
+        }, function (err, data) {
+            if (err) {
+                console.error('error publishing to SNS');
+                context.fail(err);
+            } else {
+                console.info('message published to SNS');
+                context.done(null, data);
             }
-        };
-
-
-        return context.succeed(response);
+        });
 
     }
 };
