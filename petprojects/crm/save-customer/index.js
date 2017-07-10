@@ -1,3 +1,5 @@
+var AWS = require("aws-sdk");
+
 exports.handler = (event, context, callback) => {
 
     var name = event.name;
@@ -21,6 +23,18 @@ exports.handler = (event, context, callback) => {
 
     }
     else {
+
+
+
+        var eventText = JSON.stringify(event, null, 2);
+        var sns = new AWS.SNS();
+        var params = {
+            Message: eventText,
+            Subject: "Test SNS From Lambda",
+            TopicArn: "arn:aws:sns:ap-southeast-1:936825406282:customerDetails"
+        };
+        sns.publish(params, context.done);
+
 
 
         let response = {
