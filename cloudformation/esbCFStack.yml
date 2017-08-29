@@ -1,0 +1,198 @@
+---
+Description: EC2 - EC2 instances for middleware
+
+Parameters:
+  IamInstanceProfile:
+    Type: String
+  MasterImageId:
+    Type: String
+  WorkerImageId:
+    Type: String
+  MasterInstanceType:
+    Type: String
+  SlaveInstanceType:
+    Type: String
+  KeyName:
+    Type: String
+  SecurityGroups:
+    Type: List<String>
+  SubnetIds:
+    Type: List<String>
+  MasterIpAddress:
+    Type: String
+    Description: The IP Address to assign to the master, must be in Az[0]
+  NumWorkers:
+    Type: Number
+    Description: The number of worker instances, must match the number of WorkerIpAddresses
+  WorkerIpAddresses:
+    Type: List<String>
+    Description: The IP Addresses to assign to the worker nodes, see readme.md
+
+Conditions:
+  HasWorker01: !Or [ Condition: HasWorker02, !Equals [ !Ref NumWorkers, 1 ] ]
+  HasWorker02: !Or [ Condition: HasWorker03, !Equals [ !Ref NumWorkers, 2 ] ]
+  HasWorker03: !Or [ Condition: HasWorker04, !Equals [ !Ref NumWorkers, 3 ] ]
+  HasWorker04: !Or [ Condition: HasWorker05, !Equals [ !Ref NumWorkers, 4 ] ]
+  HasWorker05: !Or [ Condition: HasWorker06, !Equals [ !Ref NumWorkers, 5 ] ]
+  HasWorker06: !Equals [ !Ref NumWorkers, 6 ]
+
+Resources:
+  Master01:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref MasterImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref MasterInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Ref MasterIpAddress
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 0, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-master01"
+
+  Worker01:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker01
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 0, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 0, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker01"
+
+  Worker02:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker02
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 1, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 1, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker02"
+
+  Worker03:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker03
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 2, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 2, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker03"
+
+  Worker04:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker04
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 3, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 0, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker04"
+
+  Worker05:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker05
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 4, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 1, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker05"
+
+  Worker06:
+    Type: "AWS::EC2::Instance"
+    Condition: HasWorker06
+    Properties:
+      IamInstanceProfile: !Ref IamInstanceProfile
+      ImageId: !Ref WorkerImageId
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: !Ref SlaveInstanceType
+      KeyName: !Ref KeyName
+      Monitoring: true
+      PrivateIpAddress: !Select [ 5, !Ref WorkerIpAddresses ]
+      SecurityGroupIds: !Ref SecurityGroups
+      SubnetId: !Select [ 2, !Ref SubnetIds ]
+      Tags:
+      - Key: Name
+        Value: !Sub "${AWS::StackName}-worker06"
+
+Outputs:
+  Master01PrivateIp:
+    Value: !GetAtt Master01.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Master01PrivateIp"
+
+  Worker01PrivateIp:
+    Condition: HasWorker01
+    Value: !GetAtt Worker01.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker01PrivateIp"
+
+  Worker02PrivateIp:
+    Condition: HasWorker02
+    Value: !GetAtt Worker02.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker02PrivateIp"
+
+  Worker03PrivateIp:
+    Condition: HasWorker03
+    Value: !GetAtt Worker03.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker03PrivateIp"
+
+  Worker04PrivateIp:
+    Condition: HasWorker04
+    Value: !GetAtt Worker04.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker04PrivateIp"
+
+  Worker05PrivateIp:
+    Condition: HasWorker05
+    Value: !GetAtt Worker05.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker05PrivateIp"
+
+  Worker06PrivateIp:
+    Condition: HasWorker06
+    Value: !GetAtt Worker06.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}::Worker06PrivateIp"
