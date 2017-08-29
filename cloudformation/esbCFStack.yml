@@ -1,5 +1,5 @@
 ---
-Description: EC2 - EC2 instances for middleware
+Description: EC2 - EC2 instances for middleware WSO2
 
 Parameters:
   IamInstanceProfile:
