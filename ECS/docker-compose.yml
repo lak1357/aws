@@ -1,0 +1,10 @@
+php-demo:
+	image: 936825406282.dkr.ecr.ap-southeast-1.amazonaws.com/mytest-project-repo:v1
+	cpu_shares: 100
+	mem_limit: 134217728
+	ports:
+ 	  - "80:80"
+	entrypoint:
+	  - "/usr/sbin/apache2"
+	  - "-D"
+	  - "FOREGROUND"
