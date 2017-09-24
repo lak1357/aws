@@ -1,5 +1,5 @@
 php-demo:
-  image: 936825406282.dkr.ecr.ap-southeast-1.amazonaws.com/mytest-project-repo:v2
+  image: 936825406282.dkr.ecr.ap-southeast-1.amazonaws.com/mytest-project-repo:v3
   cpu_shares: 100
   mem_limit: 134217728
   ports:

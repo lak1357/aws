@@ -28,6 +28,8 @@ ecs-cli up --keypair myrnd2 --capability-iam --size 3 --instance-type t2.micro
 
 ### Deploy Service ###
 
+ecs-cli compose service up
+
 
 
 
