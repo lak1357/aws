@@ -1,0 +1,13 @@
+{
+  "cloudwatch.emitMetrics": true,
+  "kinesis.endpoint": "https://kinesis.eu-west-1.amazonaws.com",
+  "firehose.endpoint": "eu-west-1",
+
+  "flows": [
+    {
+      "filePattern": "/tmp/app.log*",
+      "kinesisStream": "applogstream",
+      "partitionKeyOption": "RANDOM"
+    }
+  ]
+}
