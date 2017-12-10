@@ -34,6 +34,7 @@ Resources:
           detail: 
             eventName: 
               - "RunInstances"
+        State: "ENABLED"
         Targets: 
           - 
             Arn: 
