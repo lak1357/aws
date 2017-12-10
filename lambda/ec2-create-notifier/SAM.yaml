@@ -1,3 +1,6 @@
+# This CF template generate an E-Mail whenever there is a EC2 instance create
+# Bug - Need to edit CloudWatch Rule "EC2EventRule" from console to work
+
 Transform: 'AWS::Serverless-2016-10-31'
 
 # Parameters are CloudFormation features to pass input
