@@ -35,4 +35,4 @@ Resources:
           - 
             Arn: 
               Ref: "EC2EventsTopic"
-            Id: "EC2EventsTopic"
+            Id: "ID001"
