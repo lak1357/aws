@@ -1,0 +1,38 @@
+Transform: 'AWS::Serverless-2016-10-31'
+
+# Parameters are CloudFormation features to pass input
+# to your template when you create a stack
+Parameters:
+    BucketName:
+        Type: String
+    CodeKey:
+        Type: String
+
+Resources:
+    EC2EventsTopic: 
+      Type: "AWS::SNS::Topic"
+      Properties:
+        TopicName: "EC2EventsTopic"
+
+    EC2EventsTopicSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: lherath@mitrai.com
+        Protocol: email
+        TopicArn: !Ref 'EC2EventsTopic'
+
+    EC2EventRule: 
+      Type: "AWS::Events::Rule"
+      Properties: 
+        Description: "EventRule"
+        EventPattern: 
+          source: 
+            - "aws.ec2"
+          detail: 
+            eventName: 
+              - "RunInstances"
+        Targets: 
+          - 
+            Arn: 
+              Ref: "EC2EventsTopic"
+            Id: "EC2EventsTopic"

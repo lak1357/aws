@@ -1,0 +1,28 @@
+EventRule: 
+  Type: "AWS::Events::Rule"
+  Properties: 
+    Description: "EventRule"
+    EventPattern: 
+      source: 
+        - "aws.ec2"
+      detail: 
+        eventName: 
+          - "RunInstances"
+    Targets: 
+      - 
+        Arn: 
+          Fn::GetAtt: 
+            - "LambdaFunction"
+            - "Arn"
+        Id: "TargetFunctionV1"
+PermissionForEventsToInvokeLambda: 
+  Type: "AWS::Lambda::Permission"
+  Properties: 
+    FunctionName: 
+      Ref: "LambdaFunction"
+    Action: "lambda:InvokeFunction"
+    Principal: "events.amazonaws.com"
+    SourceArn: 
+      Fn::GetAtt: 
+        - "EventRule"
+        - "Arn"
