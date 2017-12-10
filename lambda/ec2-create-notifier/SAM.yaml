@@ -40,14 +40,17 @@ Resources:
             Arn: 
               Ref: "EC2EventsTopic"
             Id: "ID001"
-            InputTransformer:
-                InputPathsMap:
-                  id: "$.id"
-                  eventName: "$.detail.eventName"
-                  awsRegion: "$.detail.awsRegion"
-                  sourceIPAddress: "$.detail.sourceIPAddress"
-                  time: "$.time"
-                  userName: "$.detail.userIdentity.userName"
-                  instanceId: "$.detail.responseElements.instancesSet.items[0].instanceId"
-                  instanceType: "$.detail.responseElements.instancesSet.items[0].instanceType"
-                InputTemplate: '"ID <id> eventName <eventName> awsRegion <awsRegion> sourceIPAddress <sourceIPAddress> time <time> userName <userName> instanceId <instanceId> instanceType <instanceType>."'
+
+
+
+            # InputTransformer:
+            #     InputPathsMap:
+            #       id: "$.id"
+            #       eventName: "$.detail.eventName"
+            #       awsRegion: "$.detail.awsRegion"
+            #       sourceIPAddress: "$.detail.sourceIPAddress"
+            #       time: "$.time"
+            #       userName: "$.detail.userIdentity.userName"
+            #       instanceId: "$.detail.responseElements.instancesSet.items[0].instanceId"
+            #       instanceType: "$.detail.responseElements.instancesSet.items[0].instanceType"
+            #     InputTemplate: '"ID <id> eventName <eventName> awsRegion <awsRegion> sourceIPAddress <sourceIPAddress> time <time> userName <userName> instanceId <instanceId> instanceType <instanceType>."'
