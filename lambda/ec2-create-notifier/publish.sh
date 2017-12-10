@@ -1,5 +1,4 @@
-rm calculator.zip
-cd calculator
-zip -r ../calculator.zip *
 cd ..
-aws lambda update-function-code --function-name calculator --zip-file fileb://calculator.zip
+rm ec2-create-notifier.zip
+cd ec2-create-notifier
+zip -r ../ec2-create-notifier.zip * -x publish.sh SAM.yaml sample.json

@@ -5,13 +5,22 @@ Transform: 'AWS::Serverless-2016-10-31'
 
 # Parameters are CloudFormation features to pass input
 # to your template when you create a stack
-Parameters:
-    BucketName:
-        Type: String
-    CodeKey:
-        Type: String
+# Parameters:
+#     BucketName:
+#         Type: String
+#         Description : "Enter Bucket name of Lambda function zip."
+#     CodeKey:
+#         Type: String
+#         Description : "Enter Folder name of Lambda function zip."
 
 Resources:
+    EC2CreateNotifyFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: index.handler
+        Runtime: nodejs6.10
+        CodeUri: s3://6282-lambda/ec2-create-notifier/ec2-create-notifier.zip
+
     EC2EventsTopic: 
       Type: "AWS::SNS::Topic"
       Properties:
@@ -35,11 +44,17 @@ Resources:
             eventName: 
               - "RunInstances"
         State: "ENABLED"
-        Targets: 
+        Targets:
           - 
             Arn: 
-              Ref: "EC2EventsTopic"
+              Fn::GetAtt:
+                - EC2CreateNotifyFunction
+                - Arn
             Id: "ID001"
+          - 
+            Arn:
+              Ref: "EC2EventsTopic"
+            Id: "ID002"
 
 
 
