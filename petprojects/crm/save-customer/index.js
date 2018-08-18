@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
 
             var sns = new AWS.SNS();
             sns.publish({
-            TopicArn: "arn:aws:sns:ap-southeast-1:936825406282:customerDetails",
+            TopicArn: "arn:aws:sns:ap-southeast-1:XXXXXXXXX:customerDetails",
             Subject: "Test SNS From Lambda",
             Message: JSON.stringify(message)
         }, function (err, data) {

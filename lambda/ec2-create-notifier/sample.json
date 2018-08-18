@@ -3,7 +3,7 @@
     "id": "7ebfcb47-3677-1c51-18e3-1bf0e0121873",
     "detail-type": "AWS API Call via CloudTrail",
     "source": "aws.ec2",
-    "account": "936825406282",
+    "account": "XXXXXXXXXXXXXXXXXXXXXXXX",
     "time": "2017-12-10T06:06:07Z",
     "region": "ap-southeast-1",
     "resources": [],
@@ -12,10 +12,10 @@
         "userIdentity": {
             "type": "IAMUser",
             "principalId": "AIDAIQ23RND27WO3XEAJS",
-            "arn": "arn:aws:iam::936825406282:user/lakshitha",
-            "accountId": "936825406282",
-            "accessKeyId": "ASIAIXXYWQH2QFTKYWPQ",
-            "userName": "lakshitha",
+            "arn": "arn:aws:iam::XXXXXXXXXXXXXXXX:user/xxx",
+            "accountId": "XXXXXXXXXXXXXXXXXX",
+            "accessKeyId": "XXXXXXXXXXXXXXXXX",
+            "userName": "xxx",
             "sessionContext": {
                 "attributes": {
                     "mfaAuthenticated": "false",
