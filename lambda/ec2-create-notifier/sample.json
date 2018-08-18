@@ -73,7 +73,7 @@
         "responseElements": {
             "requestId": "156dbacc-e0ca-4839-abaa-d717438c941d",
             "reservationId": "r-05edfdd82219ad4c2",
-            "ownerId": "936825406282",
+            "ownerId": "ACOUNT_ID",
             "groupSet": {},
             "instancesSet": {
                 "items": [
@@ -125,7 +125,7 @@
                                     "networkInterfaceId": "eni-2c168307",
                                     "subnetId": "subnet-dd8447ab",
                                     "vpcId": "vpc-abecf7ce",
-                                    "ownerId": "936825406282",
+                                    "ownerId": "ACOUNT_ID",
                                     "status": "in-use",
                                     "macAddress": "06:d1:2d:dd:b6:90",
                                     "privateIpAddress": "172.31.30.238",
