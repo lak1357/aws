@@ -1,0 +1,20 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito-client-1:
+            client-id: 4laoac8eqo243v0h2nsacbjko1
+            client-secret: khts0262r41pr97n8b4ltl8sravdf200boqtda446kqckmftncg
+            client-name: Connect to ABC Bank
+            provider: cognito
+            scope: openid
+            redirect-uri-template: http://localhost:8080/login/oauth2/code/cognito
+            authorization-grant-type: authorization_code   
+        provider:
+          cognito:
+            authorization-uri: https://auth.mitralabs.co.uk/oauth2/authorize
+            token-uri: https://auth.mitralabs.co.uk/oauth2/token
+            user-info-uri: https://auth.mitralabs.co.uk/oauth2/userInfo
+            jwk-set-uri: https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_loKtTNoLD/.well-known/jwks.json
+            user-name-attribute: cognito:username
