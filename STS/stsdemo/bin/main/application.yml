@@ -1,0 +1,13 @@
+aws:
+  access:
+    key:
+      id: ''
+      secret: ''
+  region: ap-southeast-1
+  s3:
+    data:
+      bucket: mitrademo
+  temporary:
+    credentials:
+      validity:
+        duration: 900
